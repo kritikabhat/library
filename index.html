@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="addBookContainer">
+          <button type="button" class="button" id="addBookBtn">Add New</button>
+      </div>
+
+      <div id="myModal" class="hidden">
+        <div id="modalContainer">
+                <div><u>Enter book details:</u></div>
+                <form method="post" id="bookForm">
+                  <input type="text" id="author" placeholder="Author">
+                  <input type="text" id="title" placeholder="Title">
+                  <input type="number" id="pages" placeholder="No. of Pages" >
+                  <div>
+                    <label for="read">Have you read this?</label>
+                    <input type="checkbox" id="read">
+                  </div>
+                </form>
+                <div id="formButtonContainer">
+                  <button type="submit" form="bookForm" class="button" id="submitBtn">Submit</button>
+                </div>
+        </div>
+      </div>
+      <div id="overlay" class="hidden"></div>
+
+      <div id="displayBooks">
+        <div data-book-number="1" class="bookCard">
+          <div data-title>Harry Potter and the Order of Phoenix</div>
+          <div data-author>J.K. Rowling</div>
+          <div data-pages></div>
+          <button type="button" class="read button" data-read-status>Read</button>
+        </div>
+        <div data-book-number="2" class="bookCard">
+          <div data-title>The Hobbit</div>
+          <div data-author>J.R.R. Tolkien</div>
+          <div data-pages></div>
+          <button type="button" class="unread button" data-read-status>Unread</button>
+        </div>
+      </div>
+
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

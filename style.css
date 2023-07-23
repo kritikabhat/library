@@ -1,0 +1,85 @@
+#container {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.1rem;
+    font-weight: 400;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+}
+.button {
+    padding-top: 2vh;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+    border: 1px solid black;
+    width: 12vw;
+}
+#addBookContainer {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding-top: 2vh;
+    padding-bottom: 4vh;
+    border-bottom: 1px solid rgba(0,0,0, 0.3);
+}
+#displayBooks {
+    display: flex;
+    gap: 4vw;
+    z-index: 0;
+}
+.bookCard {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2vw;
+    border: 1px solid black;
+    padding: 2vw;
+    width: auto;
+    background-color: whitesmoke;
+} 
+/* Background of card? or button If read, then green. Else gray? */
+.read {
+    background-color: rgb(80, 200, 120, 0.7);
+}
+.unread {
+    background-color: rgb(240,128,128,0.5);
+}
+#myModal {
+    position: absolute;
+    z-index: 2; /* Original is 0. This will be on top */
+    left: 30vw;
+    top: 35vh;
+    overflow: auto;
+    background-color: whitesmoke;
+    padding: 4vh;
+    width: 40vw;
+}
+#overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, 0.8); /* Black w/ opacity */
+    z-index: 1;
+}
+#modalContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    align-items: center;
+    justify-content: center;
+}
+.hidden {
+    display: none;
+}
+
+#bookForm {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
