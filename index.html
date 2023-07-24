@@ -18,16 +18,16 @@
         <div id="modalContainer">
                 <div><u>Enter book details:</u></div>
                 <form method="post" id="bookForm">
-                  <input type="text" id="author" placeholder="Author">
-                  <input type="text" id="title" placeholder="Title">
-                  <input type="number" id="pages" placeholder="No. of Pages" >
+                  <input type="text" id="title" placeholder="Title" required>
+                  <input type="text" id="author" placeholder="Author" required>
+                  <input type="number" id="pages" placeholder="No. of Pages" required>
                   <div>
                     <label for="read">Have you read this?</label>
                     <input type="checkbox" id="read">
                   </div>
                 </form>
                 <div id="formButtonContainer">
-                  <button type="submit" form="bookForm" class="button" id="submitBtn">Submit</button>
+                  <button type="button" form="bookForm" class="button" id="submitBtn">Submit</button>
                 </div>
         </div>
       </div>
@@ -35,16 +35,18 @@
 
       <div id="displayBooks">
         <div data-book-number="1" class="bookCard">
-          <div data-title>Harry Potter and the Order of Phoenix</div>
-          <div data-author>J.K. Rowling</div>
-          <div data-pages></div>
-          <button type="button" class="read button" data-read-status>Read</button>
+          <div class="title">Harry Potter and the Order of Phoenix</div>
+          <div class="author">J.K. Rowling</div>
+          <div class="pages">766</div>
+          <button type="button" class="read button">Read</button>
+          <button data-remove-index="1" type="button" class="remove button">Remove1</button>
         </div>
         <div data-book-number="2" class="bookCard">
-          <div data-title>The Hobbit</div>
-          <div data-author>J.R.R. Tolkien</div>
-          <div data-pages></div>
-          <button type="button" class="unread button" data-read-status>Unread</button>
+          <div class="title">The Hobbit</div>
+          <div class="author">J.R.R. Tolkien</div>
+          <div class="pages">310</div>
+          <button type="submit" class="unread button" >Unread</button>
+          <button data-remove-index="2" type="button" class="remove button">Remove2</button>
         </div>
       </div>
 
