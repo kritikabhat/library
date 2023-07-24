@@ -22,8 +22,9 @@
     padding-bottom: 4vh;
     border-bottom: 1px solid rgba(0,0,0, 0.3);
 }
-#displayBooks {
+#booksDisplay {
     display: flex;
+    flex-wrap: wrap;
     gap: 4vw;
     z-index: 0;
 }
@@ -37,9 +38,8 @@
     border: 1px solid black;
     padding: 2vw;
     width: auto;
-    background-color: whitesmoke;
+    background-color: rgb(240, 255, 255);
 } 
-/* Background of card? or button If read, then green. Else gray? */
 .read {
     background-color: rgb(80, 200, 120, 0.7);
 }
@@ -48,11 +48,11 @@
 }
 #myModal {
     position: absolute;
-    z-index: 2; /* Original is 0. This will be on top */
+    z-index: 2;
     left: 30vw;
     top: 35vh;
     overflow: auto;
-    background-color: whitesmoke;
+    background-color: rgb(240, 255, 255);
     padding: 4vh;
     width: 40vw;
 }
@@ -64,7 +64,7 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0, 0.8); /* Black w/ opacity */
+    background-color: rgba(0,0,0, 0.8);
     z-index: 1;
 }
 #modalContainer {

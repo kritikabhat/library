@@ -1,107 +1,137 @@
-const container = document.getElementById("container") // The main div in which everything sits.
-const addBookBtn = document.getElementById("addBookBtn")
-const submitBtn = document.getElementById("submitBtn")
 const myModal = document.getElementById("myModal")
 const overlay = document.getElementById("overlay")
+const library = []
 
-const displayBooks = document.getElementById("displayBooks")
-let bookCard, bookDetails, bookIndex = 3
-
-const books = document.querySelectorAll(".bookCard")
-let remove = document.querySelectorAll(".remove") // array of all remove buttons
-
-// I guess issue with this loop is that the remove array above is not dynamic. It only takes the original books. How to fix?
-// I guess update this remove array every time a book is added to library. and delete also?
-for (let i = 0; i < remove.length; i++) { // This removes cards but it is not working for newly added books
-  console.log("Prints once for each remove button on homepage, but not for new ones")
-  console.log("Element " + JSON.stringify(remove[i]))
-
-  remove[i].addEventListener("click", () => {
-    console.log("value: " + remove[i].dataset.removeIndex)
-    const parent = remove[i].parentElement
-    parent.classList.add("hidden")
-  })
+function Book (title, author, pages, readStatus) {
+  this.title = title
+  this.author = author
+  this.pages = pages
+  this.readStatus = readStatus
 }
 
+const addToLibrary = (title, author, pages, readStatus) => {
+  if (findBook(title) === false) {
+    const book = new Book(title, author, pages, readStatus)
+    library.push(book)
+    addBookToDOM(book)
+  } else {
+    alert("Book already exists in library!")
+  }
+}
 
-/* remove.forEach((element) => {
-  console.log("Prints once for each remove button on homepage, but not for new ones")
-  console.log("Element " + JSON.stringify(element))
+const findBook = (title) => {
+  if (library.length === 0) return false 
+  for (let i = 0; i < library.length; i++) {
+    if (library[i].title === title) {
+      return title
+    }
+  }
+  return false 
+}
+const printAllBooks = () => {
+  for (let i = 0; i < library.length; i++) {
+    console.log("Book: " + library[i].title)
+  }
+}
 
-  element.addEventListener("click", () => {
-    console.log("Damn")
-    console.log("print: " + )
+const addBookToDOM = (book) => {
+  const booksDisplay = document.getElementById("booksDisplay")
+  let bookCard, bookInfo
 
-    
-  })
-}) */
-
-/* books.forEach((selectedBook) => {
-  console.log("inside: " + selectedBook.dataset.bookNumber) // Works. Give index of bookCard.
-
-  // remove = document.getElementById("remove")
-  // remove = document.querySelector('data-remove-index[selectedBook.dataset.bookNumber]');
+  let arr = ["title", "author", "pages"]
   
-  /* remove.addEventListener("click", () => {
-    console.log("Damn")
-    console.log("inside: " + selectedBook.dataset.bookNumber)
-  }) */
-  /* remove.addEventListener("click", (bookValue) => {
-    console.log("inside: " + bookValue.dataset)
-  })
-}) */
-
-function addBookToLibrary(title, author, pages, readStatus) {
-  let arr = [title, author, pages]
-
   bookCard = document.createElement('div')
   bookCard.classList.add("bookCard")
 
-  arr.forEach(bookDetail => {
-    bookDetails = document.createElement('div')
-    bookDetails.classList.add("title")
-    bookDetails.textContent = bookDetail
-    bookCard.appendChild(bookDetails)
+  arr.forEach(item => {
+    bookInfo = document.createElement('div')
+    bookInfo.classList.add(item)
+    bookInfo.textContent = book[item]
+    bookCard.appendChild(bookInfo)
   })
 
-  bookDetails = document.createElement('button') // For the button div
-  bookDetails.classList.add("button")
-  if (readStatus === true) { 
-    bookDetails.classList.add("read")
-    bookDetails.textContent = "Read"
-  } else {
-    bookDetails.classList.add("unread")
-    bookDetails.textContent = "Unread"
+  bookInfo = document.createElement('button')
+  bookInfo.classList.add("button")
+  bookInfo.classList.add(book.readStatus)
+  bookInfo.textContent = book.readStatus
+  bookCard.appendChild(bookInfo)
+
+  bookInfo = document.createElement('button')
+  bookInfo.textContent = "remove"
+  bookInfo.classList.add("remove")
+  bookInfo.classList.add("button")
+  bookCard.appendChild(bookInfo)
+  
+  booksDisplay.appendChild(bookCard)
+}
+
+const handleSubmitBtn = () => {
+  const title = document.getElementById("title")
+  const author = document.getElementById("author")
+  const pages = document.getElementById("pages")
+  const readStatus = document.getElementById("read")
+  if (title.value === "" || author.value === "") {
+    alert("Both Title and Author are mandatory fields.")
+    return
   }
-  bookCard.appendChild(bookDetails)
+  if (readStatus.checked) 
+    addToLibrary(title.value, author.value, pages.value, "read")
+  else
+    addToLibrary(title.value, author.value, pages.value, "unread")
 
-  bookDetails = document.createElement('button') // Remove button
-  bookDetails.textContent = "Remove"
-  bookDetails.classList.add("button")
-  bookDetails.classList.add("remove")
-  bookDetails.setAttribute("data-remove-index", bookIndex++)
-  bookCard.appendChild(bookDetails)
+  closeModal()
+  resetModal(title, author, pages, readStatus)
+}
 
-  displayBooks.appendChild(bookCard) // This makes div bookCard
+const closeModal = () => {
+  myModal.classList.add("hidden")
+  overlay.classList.add("hidden")
+}
+
+const removeFromLibrary = (title) => {
+  if (library.length === 0 || findBook(title) === false) return 
+
+  for (let i = 0; i < library.length; i++) {
+    if (library[i].title === title) library.splice(i, 1)
+  }
+}
+
+const resetModal = (title, author, pages, readStatus) => {
+  title.value = ""
+  author.value = ""
+  pages.value = ""
+  title.placeholder = "Title"
+  author.placeholder = "Author"
+  pages.placeholder = "No. of Pages"
+  readStatus.checked = false
 }
 
 const mainMethod = () => {
+  const addBookBtn = document.getElementById("addBookBtn")
+  const submitBtn = document.getElementById("submitBtn")
+
   addBookBtn.addEventListener("click", () => {
     myModal.classList.remove("hidden")
     overlay.classList.remove("hidden")
   })
+  addToLibrary("Harry Potter and the Order of Phoenix", "J.K. Rowling", "766", "read")
+  addToLibrary("The Hobbit", "J.R.R. Tolkien", "310", "unread")
+  submitBtn.addEventListener("click", handleSubmitBtn)
 
-  submitBtn.addEventListener("click", () => {
-    const title = document.getElementById("title")
-    const author = document.getElementById("author")
-    const pages = document.getElementById("pages")
-    const readStatus = document.getElementById("read")
-  
-    addBookToLibrary(title.value, author.value, pages.value, readStatus.checked)
-  
-    myModal.classList.add("hidden")
-    overlay.classList.add("hidden")
+  document.addEventListener("keydown", (e) => {
+    console.log(e.key)
+    if (e.key === "Escape") closeModal()
+  })
+
+  const bookDisplay = document.getElementById("booksDisplay")
+  bookDisplay.addEventListener("click", (e) => {
+    if (e.target.textContent === "remove") {
+      const titleToDelete = e.target.parentNode.firstChild.textContent
+      if (confirm("Are you sure you want to delete " + titleToDelete)) {
+        removeFromLibrary(titleToDelete)
+        e.target.parentNode.classList.add("hidden")
+      }
+    }
   })
 }
-
 mainMethod()
