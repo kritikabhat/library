@@ -14,18 +14,37 @@
     border: 1px solid black;
     width: 12vw;
 }
+#logo {
+    display: flex;
+    padding-left: 2vw;
+}
+#logo > img {
+    max-width: 100px;
+    max-height: 100px;
+}
+#headerDiv {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0,0,0, 0.3);
+}
 #addBookContainer {
     display: flex;
     justify-content: center;
     margin: 0;
-    padding-top: 2vh;
+    padding-top: 4vh;
     padding-bottom: 4vh;
-    border-bottom: 1px solid rgba(0,0,0, 0.3);
+    padding-right: 4vw;
+}
+h1 {
+    padding-left: 1vw;
 }
 #booksDisplay {
     display: flex;
     flex-wrap: wrap;
-    gap: 4vw;
+    padding-top: 3vh;
+    row-gap: 3vh;
+    column-gap: 4vh;
     z-index: 0;
 }
 .bookCard {
