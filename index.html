@@ -1,46 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <title>Library</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="images/vecteezy_3d-book-icon-with-transparent-background_9377766_900.png" type="image/x-icon">
-  </head>
-  <header id="headerDiv">
-    <div id="logo">
-      <img src="images/icon.jpg" >
-      <h1>Library</h1>
-    </div>
-    <div id="addBookContainer">
-      <button type="button" class="button" id="addBookBtn">Add New</button>
-    </div>
-  </header>
-  <body>
-    <div id="container">
-      <div id="myModal" class="hidden">
-        <div id="modalContainer">
-                <div><u>Enter book details:</u></div>
-                <form method="post" id="bookForm">
-                  <input type="text" id="title" placeholder="Title">
-                  <input type="text" id="author" placeholder="Author">
-                  <input type="number" id="pages" placeholder="No. of Pages">
-                  <div>
-                    <label for="read">Have you read this?</label>
-                    <input type="checkbox" id="read">
-                  </div>
-                </form>
-                <div id="formButtonContainer">
-                  <button type="button" form="bookForm" class="button" id="submitBtn">Submit</button>
-                </div>
-        </div>
+<head>
+  <meta charset="utf-8"/>
+  <title>Library</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/vecteezy_3d-book-icon-with-transparent-background_9377766_900.png" type="image/x-icon">
+</head>
+<body>
+
+  <section class="header">
+      <h1>Book Library</h1>
+      <div class="editLibraryArea">
+        <button>Add Book</button>
       </div>
-      <div id="overlay" class="hidden"></div>
-      
-      <div id="booksDisplay"></div>
+  </section>
+  <section class="libraryArea">
+    <div>
+      <h3 class="bookName">Harry Potter & Philosopher's Stone</h3>
+      <p class="bookAuthor">J.K. Rowling</p>
+      <p class="bookPages">340</p>
     </div>
-    <script src="script.js"></script>
-  </body>
+    <div>
+      <h3 class="bookName">Harry Potter & Chamber of Secrets</h3>
+      <p class="bookAuthor">J.K. Rowling</p>
+      <p class="bookPages">251</p>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
 </html>
