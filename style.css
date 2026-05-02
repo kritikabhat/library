@@ -23,7 +23,7 @@
 }
 .libraryArea {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     background-color: #a0d2eb;
     gap: 1rem;
     padding: 1rem;
@@ -67,4 +67,21 @@ dialog::backdrop {
 #formButtonContainer {
     display: flex;
     justify-content: space-evenly;
+}
+button {
+    background-color: #3882f6;
+    color: #f9faf8;
+    border-radius: 0.3rem;
+    border: none;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    width: 7em;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+}
+button:hover {
+    opacity: 0.5;
+}
+.readStatus {
+    color: black;
 }
