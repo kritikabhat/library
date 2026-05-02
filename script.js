@@ -4,6 +4,20 @@
 const myLibrary = [];
 const libraryArea = document.querySelector(".libraryArea")
 
+const showModal = document.querySelector(".showModal")
+const dialog = document.querySelector("dialog")
+const cancelButton = document.querySelector(".cancelModal") 
+
+showModal.addEventListener("click", () => {
+  dialog.showModal();
+  dialog.closedBy = "any"
+});
+
+cancelButton.addEventListener("click", () => {
+  dialog.close();
+});
+
+
 class Book {
     constructor(title, author, pages, read, id) {
         this.title = title;
@@ -45,5 +59,7 @@ function displayBooks() {
         libraryArea.appendChild(newBookDiv)
     })
 }
+
+
 
 displayBooks()
