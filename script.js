@@ -47,35 +47,55 @@ cancelButton.addEventListener("click", () => {
 });
 
 function addBookToLibrary(title, author, pages, read) {
-  const newBook = new Book(title, author, pages, read, crypto.randomUUID())
+  const id = crypto.randomUUID()
+  const newBook = new Book(title, author, pages, read, id)
   myLibrary.push(newBook)
-  addBookToDOM(title, author, pages, read)
+  addBookToDOM(title, author, pages, read, id)
 }
 
-function addBookToDOM(title, author, pages, read) {
+function addBookToDOM(title, author, pages, read, id) {
   const newBookDiv = document.createElement("div")
   const h3 = document.createElement("h3")
   const p1 = document.createElement("p")
   const p2 = document.createElement("p")
+  const removeBookBtn = document.createElement("button")
 
   h3.classList.add("bookName")
   h3.textContent = title
+  h3.dataset.id = id
   
   p1.classList.add("bookAuthor")
   p1.textContent = author
   
   p2.classList.add("bookPages")
   p2.textContent = pages
+
+  removeBookBtn.classList.add("removeBookBtn")
+  removeBookBtn.textContent = "Remove Book"
   
   newBookDiv.appendChild(h3)
   newBookDiv.appendChild(p1)
   newBookDiv.appendChild(p2)
+  newBookDiv.appendChild(removeBookBtn)
   libraryArea.appendChild(newBookDiv)
 }
 
-/* Can reuse this for some other method
+libraryArea.addEventListener("click", (e) => {
+  if (e.target.textContent === "Remove Book") {
+    if(confirm("Are you sure you want to delete this book?"))
+      deleteBook(e)
+  }
+})
 
-function displayBooks() {
-    myLibrary.forEach((book) => { 
-    })
-} */
+function deleteBook(e) {
+  if (myLibrary.length === 0) return
+  const id = e.target.parentNode.firstChild.dataset.id
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i].id === id) 
+      myLibrary.splice(i, 1)
+  }
+  e.target.parentNode.remove()
+}
+
+addBookToLibrary("Harry Potter & Philosopher's Stone", "J.K. Rowling", "340", "Yes")
+addBookToLibrary("Harry Potter & Chamber of Secrets", "J.K. Rowling", "251", "No")

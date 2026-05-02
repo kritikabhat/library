@@ -48,6 +48,7 @@ dialog {
   background: #eee;
   padding: 1rem;
   width: 24rem;
+  border: 1px solid rgb(55, 55, 55);
 }
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
@@ -57,6 +58,7 @@ dialog::backdrop {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    margin-top: 1rem;
 }
 
 #bookForm div {
