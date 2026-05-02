@@ -134,4 +134,9 @@ function toggleReadStatus(e, i, id) {
 }
 
 addBookToLibrary("Harry Potter & Philosopher's Stone", "J.K. Rowling", "340", "Read")
-addBookToLibrary("Harry Potter & Chamber of Secrets", "J.K. Rowling", "251", "Unread")
+addBookToLibrary("Harry Potter & Chamber of Secrets", "J.K. Rowling", "251", "Read")
+addBookToLibrary("Harry Potter & Prisoner of Azkaban", "J.K. Rowling", "435", "Unread")
+addBookToLibrary("Harry Potter & Goblet of Fire", "J.K. Rowling", "734", "Unread")
+addBookToLibrary("Harry Potter & Order of the Phoenix", "J.K. Rowling", "766", "Unread")
+addBookToLibrary("Harry Potter & Half-Blood Prince", "J.K. Rowling", "607", "Read")
+addBookToLibrary("Harry Potter & Deathly Hallows", "J.K. Rowling", "700", "Unread")

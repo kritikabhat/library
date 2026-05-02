@@ -1,3 +1,25 @@
+# Library 2.0
+Welcome to Library 2.0
+
+Changes:
+<ul>
+    <li>Complete code overhaul. Clean, readable code</li>
+    <li>Each book now has a unique ID using randomUUID()</li>
+    <li>Library search is now done through this randomUUID</li>
+    <li>You can now toggle the Read/Unread Status of a book</li>
+    <li>Uses Grid and Flex layout. The display fits different screens better</li>
+    <li>Improved design of the Modal and buttons</li>
+    <li>Removed validations as each book addition now has a unique ID</li>
+</ul>
+
+<img src="images/newLayout.png" width=80%>
+
+<img src="images/newModal.png" width=80%>
+
+The text below shows the original site layout and information.
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
+
 ## Library
 This project creates a library database to track the books a user owns in their library.
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
