@@ -1,137 +1,142 @@
-const myModal = document.getElementById("myModal")
-const overlay = document.getElementById("overlay")
-const library = []
+const myLibrary = [];
+const libraryArea = document.querySelector(".libraryArea")
 
-function Book (title, author, pages, readStatus) {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.readStatus = readStatus
+const showModal = document.querySelector(".showModal")
+const dialog = document.querySelector("dialog")
+const cancelButton = document.querySelector(".cancelModal") 
+const submitBtn = document.querySelector("#submitBtn")
+
+class Book {
+    constructor(title, author, pages, read, id) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.id = id;
+    }
+    info() {
+        console.log(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
+    }
+    toggleReadStatus(readStatus) {
+        (readStatus === "Read") ? this.read = "Unread" : this.read = "Read";
+    }
 }
 
-const addToLibrary = (title, author, pages, readStatus) => {
-  if (findBook(title) === false) {
-    const book = new Book(title, author, pages, readStatus)
-    library.push(book)
-    addBookToDOM(book)
+showModal.addEventListener("click", (e) => {
+  dialog.showModal();
+  dialog.closedBy = "any"
+});
+
+// Handles adding new book via modal
+submitBtn.addEventListener("click", (e) => {
+  const readStatus = document.querySelector("#readStatus")
+  const read = (readStatus.checked) ? "Read": "Unread"
+
+  e.preventDefault()
+  addBookToLibrary(
+    document.getElementById("title").value, 
+    document.getElementById("author").value, 
+    document.getElementById("pages").value,
+    read)
+
+  dialog.close()
+  document.getElementById("bookForm").reset()
+  console.log("Book added via modal")
+})
+
+cancelButton.addEventListener("click", () => {
+  dialog.close()
+  console.log("Close without doing anything")
+});
+
+function addBookToLibrary(title, author, pages, read) {
+  const id = crypto.randomUUID()
+  const newBook = new Book(title, author, pages, read, id)
+  myLibrary.push(newBook)
+  addBookToDOM(title, author, pages, read, id)
+}
+
+function addBookToDOM(title, author, pages, read, id) {
+  const newBookDiv = document.createElement("div")
+  const h3 = document.createElement("h3")
+  const p1 = document.createElement("p")
+  const p2 = document.createElement("p")
+  const removeBookBtn = document.createElement("button")
+  const readStatus = document.createElement("button")
+
+  h3.classList.add("bookName")
+  h3.textContent = title
+  h3.dataset.id = id
+  
+  p1.classList.add("bookAuthor")
+  p1.textContent = author
+  
+  p2.classList.add("bookPages")
+  p2.textContent = pages
+
+  removeBookBtn.classList.add("removeBookBtn")
+  removeBookBtn.textContent = "Remove Book"
+
+  readStatus.classList.add("readStatus")
+  if (read === "Read") {
+    readStatus.textContent = "Read"
+    readStatus.style.backgroundColor = "rgb(80, 200, 120, 0.7)"
   } else {
-    alert("Book already exists in library!")
+    readStatus.textContent = "Unread"
+    readStatus.style.backgroundColor = "rgb(240, 128, 128, 0.5)"
   }
+  
+  newBookDiv.appendChild(h3)
+  newBookDiv.appendChild(p1)
+  newBookDiv.appendChild(p2)
+  newBookDiv.appendChild(removeBookBtn)
+  newBookDiv.appendChild(readStatus)
+  libraryArea.appendChild(newBookDiv)
 }
 
-const findBook = (title) => {
-  if (library.length === 0) return false 
-  for (let i = 0; i < library.length; i++) {
-    if (library[i].title === title) {
-      return title
+// Handles book removal and updates readStatus
+libraryArea.addEventListener("click", (e) => {
+  if (myLibrary.length === 0) return
+  const id = e.target.parentNode.firstChild.dataset.id
+  
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i].id === id) {
+      if (e.target.textContent === "Remove Book")
+        deleteBook(e, i, id)
+
+      if (e.target.classList.contains("readStatus"))
+        toggleReadStatus(e, i, id)
     }
   }
-  return false 
-}
-const printAllBooks = () => {
-  for (let i = 0; i < library.length; i++) {
-    console.log("Book: " + library[i].title)
+})
+
+function deleteBook(e, i, id) {
+  if(confirm("Are you sure you want to delete this book?")) {
+    myLibrary.splice(i, 1)
+    e.target.parentNode.remove()
   }
-}
+} 
 
-const addBookToDOM = (book) => {
-  const booksDisplay = document.getElementById("booksDisplay")
-  let bookCard, bookInfo
-
-  let arr = ["title", "author", "pages"]
-  
-  bookCard = document.createElement('div')
-  bookCard.classList.add("bookCard")
-
-  arr.forEach(item => {
-    bookInfo = document.createElement('div')
-    bookInfo.classList.add(item)
-    bookInfo.textContent = book[item]
-    bookCard.appendChild(bookInfo)
-  })
-
-  bookInfo = document.createElement('button')
-  bookInfo.classList.add("button")
-  bookInfo.classList.add(book.readStatus)
-  bookInfo.textContent = book.readStatus
-  bookCard.appendChild(bookInfo)
-
-  bookInfo = document.createElement('button')
-  bookInfo.textContent = "remove"
-  bookInfo.classList.add("remove")
-  bookInfo.classList.add("button")
-  bookCard.appendChild(bookInfo)
-  
-  booksDisplay.appendChild(bookCard)
-}
-
-const handleSubmitBtn = () => {
-  const title = document.getElementById("title")
-  const author = document.getElementById("author")
-  const pages = document.getElementById("pages")
-  const readStatus = document.getElementById("read")
-  if (title.value === "" || author.value === "") {
-    alert("Both Title and Author are mandatory fields.")
-    return
-  }
-  if (readStatus.checked) 
-    addToLibrary(title.value, author.value, pages.value, "read")
-  else
-    addToLibrary(title.value, author.value, pages.value, "unread")
-
-  closeModal()
-  resetModal(title, author, pages, readStatus)
-}
-
-const closeModal = () => {
-  myModal.classList.add("hidden")
-  overlay.classList.add("hidden")
-}
-
-const removeFromLibrary = (title) => {
-  if (library.length === 0 || findBook(title) === false) return 
-
-  for (let i = 0; i < library.length; i++) {
-    if (library[i].title === title) library.splice(i, 1)
-  }
-}
-
-const resetModal = (title, author, pages, readStatus) => {
-  title.value = ""
-  author.value = ""
-  pages.value = ""
-  title.placeholder = "Title"
-  author.placeholder = "Author"
-  pages.placeholder = "No. of Pages"
-  readStatus.checked = false
-}
-
-const mainMethod = () => {
-  const addBookBtn = document.getElementById("addBookBtn")
-  const submitBtn = document.getElementById("submitBtn")
-
-  addBookBtn.addEventListener("click", () => {
-    myModal.classList.remove("hidden")
-    overlay.classList.remove("hidden")
-  })
-  addToLibrary("Harry Potter and the Order of Phoenix", "J.K. Rowling", "766", "read")
-  addToLibrary("The Hobbit", "J.R.R. Tolkien", "310", "unread")
-  submitBtn.addEventListener("click", handleSubmitBtn)
-
-  document.addEventListener("keydown", (e) => {
-    console.log(e.key)
-    if (e.key === "Escape") closeModal()
-  })
-
-  const bookDisplay = document.getElementById("booksDisplay")
-  bookDisplay.addEventListener("click", (e) => {
-    if (e.target.textContent === "remove") {
-      const titleToDelete = e.target.parentNode.firstChild.textContent
-      if (confirm("Are you sure you want to delete " + titleToDelete)) {
-        removeFromLibrary(titleToDelete)
-        e.target.parentNode.classList.add("hidden")
-      }
+function toggleReadStatus(e, i, id) {
+  if (e.target.textContent === "Read") {
+    if(confirm(`Are you sure you want to mark this book as "Unread"?`)) {
+      myLibrary[i].toggleReadStatus(e.target.textContent)
+      e.target.parentNode.lastChild.textContent = "Unread"
+      e.target.parentNode.lastChild.style.backgroundColor = "rgb(240, 128, 128, 0.5)"
     }
-  })
+  } else {
+    if(confirm(`Are you sure you want to mark this book as "Read"?`)) {
+      myLibrary[i].toggleReadStatus(e.target.textContent)
+      e.target.parentNode.lastChild.textContent = "Read"
+      e.target.parentNode.lastChild.style.backgroundColor = "rgb(80, 200, 120, 0.7)"
+    }
+  }
 }
-mainMethod()
+
+addBookToLibrary("Harry Potter & Philosopher's Stone", "J.K. Rowling", "340", "Read")
+addBookToLibrary("Harry Potter & Chamber of Secrets", "J.K. Rowling", "251", "Read")
+addBookToLibrary("Harry Potter & Prisoner of Azkaban", "J.K. Rowling", "435", "Unread")
+addBookToLibrary("Harry Potter & Goblet of Fire", "J.K. Rowling", "734", "Unread")
+addBookToLibrary("Harry Potter & Order of the Phoenix", "J.K. Rowling", "766", "Unread")
+addBookToLibrary("Harry Potter & Half-Blood Prince", "J.K. Rowling", "607", "Read")
+addBookToLibrary("Harry Potter & Deathly Hallows", "J.K. Rowling", "700", "Unread")
