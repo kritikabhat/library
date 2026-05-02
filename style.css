@@ -47,6 +47,7 @@ dialog {
   position: absolute;
   background: #eee;
   padding: 1rem;
+  width: 24rem;
 }
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
