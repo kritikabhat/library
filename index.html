@@ -16,16 +16,20 @@
 
           <u>Enter book details:</u>
           <form method="post" id="bookForm">
-            <input type="text" id="title" placeholder="Title">
-            <input type="text" id="author" placeholder="Author">
-            <input type="number" id="pages" placeholder="No. of Pages">
+            
+            <label for="title">Title</label>
+            <input type="text" id="title" required/>
+            <label for="author">Author</label>
+            <input type="text" id="author" required />
+            <label for="pages">Pages</label>
+            <input type="number" id="pages" />
             <div>
               <label for="readStatus">Have you read this?</label>
               <input type="checkbox" id="readStatus">
             </div>
           </form>
           <div id="formButtonContainer">
-            <button type="button" form="bookForm" class="button" id="submitBtn">Submit</button>
+            <button type="submit" form="bookForm" class="button" id="submitBtn">Submit</button>
             <button autofocus class="cancelModal">Cancel</button>
           </div>
         </dialog>

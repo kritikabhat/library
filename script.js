@@ -28,7 +28,7 @@ showModal.addEventListener("click", (e) => {
 });
 
 // Handles adding new book via modal
-submitBtn.addEventListener("click", (e) => {
+submitBtn.addEventListener("submit", (e) => {
   const readStatus = document.querySelector("#readStatus")
   const read = (readStatus.checked) ? "Read": "Unread"
 
